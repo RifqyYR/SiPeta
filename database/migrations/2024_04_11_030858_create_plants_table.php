@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('plants', function (Blueprint $table) {
             $table->id();
             $table->uuid()->unique();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->date('date_input');
+            $table->time('time_input');
+            $table->integer('height')->nullable();
+            $table->string('filename');
+            $table->enum('plant_type', ['spinach', 'onion'])->default('spinach');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('plants');
     }
 };
