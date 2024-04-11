@@ -11,11 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plants', function (Blueprint $table) {
+        Schema::create('growths', function (Blueprint $table) {
             $table->id();
             $table->uuid()->unique();
-            $table->enum('plant_type', ['spinach', 'onion'])->default('spinach');
+            $table->unsignedBigInteger('plant_id');
+            $table->integer('height');
+            $table->integer('sensor_value');
+            $table->string('filename');
+            $table->date('date_input');
+            $table->time('time_input');
             $table->timestamps();
+
+            $table->foreign('plant_id')->references('id')->on('plants');
         });
     }
 
@@ -24,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('plants');
+        Schema::dropIfExists('growths');
     }
 };

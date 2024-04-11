@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 
-class Plant extends Model
+class Growth extends Model
 {
     use HasFactory;
 
@@ -21,8 +21,8 @@ class Plant extends Model
         });
     }
 
-    public function growths()
+    public function plant()
     {
-        return $this->hasMany(Growth::class);
+        return $this->belongsTo(Plant::class);
     }
 }
