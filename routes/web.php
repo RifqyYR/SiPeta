@@ -16,4 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/kelola-user', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
+Route::get('/tambah-user', [App\Http\Controllers\UserController::class, 'create'])->name('user.create');
+Route::post('/tambah-user', [App\Http\Controllers\UserController::class, 'store'])->name('user.store');
+Route::get('/kelola-user/hapus/{uuid}', [App\Http\Controllers\UserController::class, 'destroy'])->name('user.destroy');
+
+Route::get('/ubah-password', [App\Http\Controllers\UserController::class, 'changePassword'])->name('change-password');
+Route::post('/ubah-password', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('update-password');
+
 Auth::routes(['register' => false, 'reset' => false, 'confirm' => false]);

@@ -5,15 +5,21 @@
 <!-- Core plugin JavaScript-->
 <script src="{{ url('template/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
+{{-- ChartJS --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <!-- Custom scripts for all pages-->
 <script src="{{ url('template/js/sb-admin-2.js') }}"></script>
+
+{{-- DataTables --}}
+<script src="//cdn.datatables.net/2.0.1/js/dataTables.min.js"></script>
 
 {{-- Toastr --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-{{-- Editable Select --}}
-<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
-<script src="//rawgithub.com/indrimuska/jquery-editable-select/master/dist/jquery-editable-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.1/dist/sweetalert2.all.min.js"></script>
 
 <!-- Chart -->
 @if (Request::route()->getName() == 'home')
@@ -23,26 +29,33 @@
     <script src="{{ url('template/js/area-chart.js') }}"></script>
 @endif
 
-{{-- DataTables --}}
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
-<script src="https://cdn.datatables.net/searchpanes/2.2.0/js/searchPanes.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.min.js"></script>
-
 <script>
     @if (session()->has('success'))
-        toastr.success('{{ session('success') }}', 'BERHASIL!');
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: '{{ session('success') }}',
+        });
     @elseif (session()->has('error'))
-        toastr.error('{{ session('error') }}', 'GAGAL!');
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: '{{ session('error') }}',
+        });
     @endif
 
     function hapusUser(id) {
         const link = document.getElementById('deleteUserLink');
         link.href = "/delete-user/" + id;
     }
-    
-    $('#editable-select').editableSelect();
-    $('.editable-select').editableSelect();
+
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+        $('.editable-select').editableSelect();
+    });
+
+    function hapusDataUser(uuid) {
+        const link = document.getElementById("deleteUserDataLink");
+        link.href = "/kelola-user/hapus/" + uuid;
+    }
 </script>

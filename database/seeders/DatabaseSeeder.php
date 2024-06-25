@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@sipeta.com',
-            'password' => Hash::make('12345')
+            'password' => Hash::make('password')
         ]);
     }
 }

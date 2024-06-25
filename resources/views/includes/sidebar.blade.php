@@ -14,7 +14,7 @@
         Menu Utama
     </div>
 
-    <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
+    <li class="nav-item {{ Route::is('home') ? 'active' : '' }}">
         <a class="nav-link nav-link-item" href="{{ route('home') }}">
             <i class="fas fa-fw fa-home fs-5 sidebar-icon"></i>
             <span class="nav-text">Dashboard</span>
@@ -39,15 +39,15 @@
         Lainnya
     </div>
 
-    <li class="nav-item {{ Request::is('/kelola-user') ? 'active' : '' }}">
-        <a class="nav-link nav-link-item" href="{{ route('home') }}">
+    <li class="nav-item {{ Route::is('user*') ? 'active' : '' }}">
+        <a class="nav-link nav-link-item" href="{{ route('user.index') }}">
             <i class="fas fa-fw fa-users fs-5 sidebar-icon"></i>
             <span class="nav-text">Kelola User</span>
         </a>
     </li>
 
-    <li class="nav-item {{ Request::is('/ubah-password') ? 'active' : '' }}">
-        <a class="nav-link nav-link-item" href="{{ route('home') }}">
+    <li class="nav-item {{ Route::is('change-password') ? 'active' : '' }}">
+        <a class="nav-link nav-link-item" href="{{ route('change-password') }}">
             <i class="fas fa-fw fa-key fs-5 sidebar-icon"></i>
             <span class="nav-text">Ubah Password</span>
         </a>
@@ -55,8 +55,8 @@
 
     <li class="nav-item {{ Request::is('/logout') ? 'active' : '' }}">
         <a class="nav-link nav-link-item" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-sign-out-alt fs-5 sidebar-icon"></i>
-            <span class="nav-text">Keluar</span>
+            <i class="fas fa-sign-out-alt fs-5 sidebar-icon text-danger"></i>
+            <span class="nav-text text-danger">Keluar</span>
         </a>
     </li>
 </ul>

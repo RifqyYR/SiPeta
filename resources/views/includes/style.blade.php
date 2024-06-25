@@ -1,10 +1,18 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
 <!-- Custom styles for this template-->
 <link href="{{ url('template/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
 <link href="{{ url('template/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
+{{-- DataTables --}}
+<link href="//cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 
 <!-- Custom fonts for this template-->
 <link
@@ -16,13 +24,11 @@
 {{-- Toastr --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
-{{-- Editable Select --}}
-<link href="//rawgithub.com/indrimuska/jquery-editable-select/master/dist/jquery-editable-select.min.css"
-    rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.2.0/css/searchPanes.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.bootstrap5.min.css">
+<link rel="stylesheet" href="{{ url('template/css/main.css') }}">
+
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.1/dist/sweetalert2.min.css" rel="stylesheet">
 
 <style>
     th {
@@ -249,5 +255,19 @@
         color: #484de0 !important;
         font-weight: bold !important;
         text-decoration: none;
+    }
+
+    .background-green {
+        background-color: #1cc88a !important;
+    }
+
+    .btn-green {
+        background-color: #1cc88a !important;
+        color: white !important;
+    }
+
+    .btn-green:hover {
+        background-color: #1bba7f !important;
+        color: white !important;
     }
 </style>
