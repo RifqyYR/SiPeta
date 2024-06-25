@@ -21,7 +21,7 @@
         </a>
     </li>
 
-    <li class="nav-item">
+    <li class="nav-item {{ Route::is('plant*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-leaf fs-5 sidebar-icon"></i>
@@ -29,8 +29,8 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Bayam</a>
-                <a class="collapse-item" href="">Bawang</a>
+                <a class="collapse-item" href="{{ route('plant.spinach.index') }}">Bayam</a>
+                <a class="collapse-item" href="{{ route('plant.onion.index') }}">Bawang</a>
             </div>
         </div>
     </li>

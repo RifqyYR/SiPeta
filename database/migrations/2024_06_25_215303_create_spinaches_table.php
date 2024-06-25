@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('growths', function (Blueprint $table) {
+        Schema::create('spinaches', function (Blueprint $table) {
             $table->id();
             $table->uuid()->unique();
-            $table->unsignedBigInteger('plant_id');
             $table->integer('height');
-            $table->integer('sensor_value')->nullable();
+            $table->integer('temperature');
+            $table->integer('ph');
             $table->string('filename');
             $table->date('date_input');
             $table->time('time_input');
             $table->timestamps();
-
-            $table->foreign('plant_id')->references('id')->on('plants');
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('growths');
+        Schema::dropIfExists('spinaches');
     }
 };

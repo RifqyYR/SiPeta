@@ -52,137 +52,182 @@ let dataFromAPI = [
     },
 ];
 
-let labels = [];
-let counts = [];
-let monthNames = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember",
-];
+$(document).ready(function () {
+    $.ajax({
+        url: "/home/get-data-chart",
+        method: "GET",
+        success: function (dataAPI) {
+            console.log(dataAPI);
+            let labels = [];
+            let counts = [];
+            let onionCounts = [];
 
-let countsByDate = {};
-for (let item of dataFromAPI) {
-    countsByDate[item.date] = item.height;
-}
+            let monthNames = [
+                "Januari",
+                "Februari",
+                "Maret",
+                "April",
+                "Mei",
+                "Juni",
+                "Juli",
+                "Agustus",
+                "September",
+                "Oktober",
+                "November",
+                "Desember",
+            ];
 
-for (let i = 6; i >= 0; i--) {
-    let d = new Date();
-    d.setDate(d.getDate() - i);
-    let dateString = formatDate(d);
+            let countsByDate = {};
+            let onionCountsByDate = {};
 
-    labels.push(`${d.getDate()} ${monthNames[d.getMonth()]}`);
-    counts.push(countsByDate[dateString] || 0);
-}
+            for (let item of dataAPI[0]) {
+                countsByDate[item.date_input] = parseInt(item.heights);
+            }
 
-const data = {
-    labels: labels,
-    datasets: [
-        {
-            label: "Laju Pertumbuhan",
-            lineTension: 0.3,
-            backgroundColor: "rgba(78, 115, 223, 0.05)",
-            borderColor: "#1cc88a",
-            pointRadius: 3,
-            pointBackgroundColor: "#1cc88a",
-            pointBorderColor: "#1cc88a",
-            pointHoverRadius: 3,
-            pointHoverBackgroundColor: "#1cc88a",
-            pointHoverBorderColor: "#1cc88a",
-            pointHitRadius: 10,
-            pointBorderWidth: 2,
-            data: counts,
-        },
-    ],
-};
+            for (let item of dataAPI[1]) {
+                onionCountsByDate[item.date_input] = parseInt(item.heights);
+            }
 
-const options = {
-    maintainAspectRatio: false,
-    responsive: true,
-    layout: {
-        padding: {
-            left: 10,
-            right: 25,
-            top: 25,
-            bottom: 0,
-        },
-    },
-    scales: {
-        x: {
-            time: {
-                unit: "date",
-            },
-            gridLines: {
-                display: false,
-                drawBorder: false,
-            },
-            ticks: {
-                maxTicksLimit: 7,
-            },
-        },
-        y: {
-            min: 0,
-            ticks: {
-                maxTicksLimit: 5,
-                padding: 10,
-                callback: function (value, index, values) {
-                    return number_format(value);
+            for (let i = 6; i >= 0; i--) {
+                let d = new Date();
+                d.setDate(d.getDate() - i);
+                let dateString = formatDate(d);
+
+                labels.push(`${d.getDate()} ${monthNames[d.getMonth()]}`);
+
+                counts.push(countsByDate[dateString] || 0);
+                onionCounts.push(onionCountsByDate[dateString] || 0);
+            }
+
+            const data = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Laju Pertumbuhan",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        borderColor: "#1cc88a",
+                        pointRadius: 3,
+                        pointBackgroundColor: "#1cc88a",
+                        pointBorderColor: "#1cc88a",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "#1cc88a",
+                        pointHoverBorderColor: "#1cc88a",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: counts,
+                    },
+                ],
+            };
+
+            const onionData = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Laju Pertumbuhan",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        borderColor: "#1cc88a",
+                        pointRadius: 3,
+                        pointBackgroundColor: "#1cc88a",
+                        pointBorderColor: "#1cc88a",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "#1cc88a",
+                        pointHoverBorderColor: "#1cc88a",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: onionCounts,
+                    },
+                ],
+            };
+
+            const options = {
+                maintainAspectRatio: false,
+                responsive: true,
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 25,
+                        top: 25,
+                        bottom: 0,
+                    },
                 },
-            },
-            gridLines: {
-                color: "rgb(234, 236, 244)",
-                zeroLineColor: "rgb(234, 236, 244)",
-                drawBorder: false,
-                borderDash: [2],
-                zeroLineBorderDash: [2],
-            },
-        },
-    },
-    legend: {
-        display: false,
-    },
-    tooltips: {
-        backgroundColor: "rgb(255,255,255)",
-        bodyFontColor: "#858796",
-        titleMarginBottom: 10,
-        titleFontColor: "#6e707e",
-        titleFontSize: 14,
-        borderColor: "#dddfeb",
-        borderWidth: 1,
-        xPadding: 15,
-        yPadding: 15,
-        displayColors: false,
-        intersect: false,
-        mode: "index",
-        caretPadding: 10,
-        callbacks: {
-            label: function (tooltipItem, chart) {
-                var datasetLabel =
-                    chart.datasets[tooltipItem.datasetIndex].label || "";
-                return datasetLabel + ": " + number_format(tooltipItem.yLabel);
-            },
-        },
-    },
-};
+                scales: {
+                    x: {
+                        time: {
+                            unit: "date",
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            maxTicksLimit: 7,
+                        },
+                    },
+                    y: {
+                        min: 0,
+                        ticks: {
+                            maxTicksLimit: 5,
+                            padding: 10,
+                            callback: function (value, index, values) {
+                                return number_format(value);
+                            },
+                        },
+                        gridLines: {
+                            color: "rgb(234, 236, 244)",
+                            zeroLineColor: "rgb(234, 236, 244)",
+                            drawBorder: false,
+                            borderDash: [2],
+                            zeroLineBorderDash: [2],
+                        },
+                    },
+                },
+                legend: {
+                    display: false,
+                },
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    titleMarginBottom: 10,
+                    titleFontColor: "#6e707e",
+                    titleFontSize: 14,
+                    borderColor: "#dddfeb",
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    intersect: false,
+                    mode: "index",
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function (tooltipItem, chart) {
+                            var datasetLabel =
+                                chart.datasets[tooltipItem.datasetIndex]
+                                    .label || "";
+                            return (
+                                datasetLabel +
+                                ": " +
+                                number_format(tooltipItem.yLabel)
+                            );
+                        },
+                    },
+                },
+            };
 
-var ctx = document.getElementById("spinachAreaChart");
-new Chart(ctx, {
-    type: "line",
-    data: data,
-    options: options,
-});
+            var ctx = document.getElementById("spinachAreaChart");
+            new Chart(ctx, {
+                type: "line",
+                data: data,
+                options: options,
+            });
 
-var ctx2 = document.getElementById("onionAreaChart");
-new Chart(ctx2, {
-    type: "line",
-    data: data,
-    options: options,
+            var ctx2 = document.getElementById("onionAreaChart");
+            new Chart(ctx2, {
+                type: "line",
+                data: onionData,
+                options: options,
+            });
+        },
+    });
 });

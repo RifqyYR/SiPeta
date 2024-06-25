@@ -48,6 +48,16 @@
         const link = document.getElementById('deleteUserLink');
         link.href = "/delete-user/" + id;
     }
+    
+    function hapusDataBayam(id) {
+        const link = document.getElementById('deleteSpinachLink');
+        link.href = "/hapus-pertumbuhan-bayam/" + id;
+    }
+    
+    function hapusDataBawang(id) {
+        const link = document.getElementById('deleteOnionLink');
+        link.href = "/hapus-pertumbuhan-bawang/" + id;
+    }
 
     $(document).ready(function() {
         $('#dataTable').DataTable();
